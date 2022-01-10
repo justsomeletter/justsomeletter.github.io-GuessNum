@@ -5,16 +5,18 @@ let secNum = Math.trunc(Math.random() * 20) + 1;
 
 let score = 20; //state variable coz it's part of so called application state
 
+let highScore = 0;
+
 document.querySelector(".check").addEventListener("click", function () {
   //typecasting the input from user to string and storing it in a variable guessNum
   let guessNum = Number(document.querySelector(".guess").value);
   //console.log(typeof guessNum, guessNum);
 
-  //First case: when user inputs nothing
+  //when user inputs nothing
   if (!guessNum) {
     document.querySelector(".message").textContent = "⛔️ No Number Entered!";
 
-    //Whwn guess is correct
+    //When player wins the game
   } else if (guessNum === secNum) {
     document.querySelector(".message").textContent = "YaY! Correct guess...🎉";
 
@@ -23,6 +25,11 @@ document.querySelector(".check").addEventListener("click", function () {
     document.querySelector(".number").style.width = "30rem";
 
     document.querySelector(".number").textContent = secNum;
+    if (highScore < score) {
+      highScore = score;
+      document.querySelector(".highscore").textContent = highScore;
+    }
+    //when player chooses to high number
   } else if (guessNum > secNum) {
     if (score > 1) {
       document.querySelector(".message").textContent = "📈Too High..!";
@@ -31,6 +38,8 @@ document.querySelector(".check").addEventListener("click", function () {
       document.querySelector(".message").textContent = "👾Game Over!!";
       document.querySelector(".score").textContent = 0;
     }
+
+    //When Player chooses to low number
   } else if (guessNum < secNum) {
     if (score > 1) {
       document.querySelector(".message").textContent = "📉Too Low!!...";
